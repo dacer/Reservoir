@@ -113,9 +113,11 @@ class SimpleDiskCache {
                                DiskLruCache.Editor editor) throws IOException {
         ObjectOutputStream oos = null;
         try {
-            oos = new ObjectOutputStream(new BufferedOutputStream(editor.newOutputStream
-                    (METADATA_IDX)));
-            oos.writeObject(metadata);
+            if (editor != null) {
+                oos = new ObjectOutputStream(new BufferedOutputStream(editor.newOutputStream
+                        (METADATA_IDX)));
+                oos.writeObject(metadata);
+            }
         } finally {
             closeQuietly(oos);
         }
